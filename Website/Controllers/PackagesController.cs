@@ -147,20 +147,13 @@ namespace NuGetGallery
             int totalHits;
             if (!String.IsNullOrEmpty(q))
             {
-                if (sortOrder.Equals(Constants.RelevanceSortOrder, StringComparison.OrdinalIgnoreCase))
+                var searchResult = searchSvc.Search(packageVersions, q, sortOrder, take: page * Constants.DefaultPackageListPageSize);
+                packageVersions = searchResult.Packages;
+                totalHits = searchResult.Count;
+                if (page == 1 && !packageVersions.Any())
                 {
-                    packageVersions = searchSvc.SearchWithRelevance(packageVersions, q, take: page * Constants.DefaultPackageListPageSize, totalHits: out totalHits);
-                    if (page == 1 && !packageVersions.Any())
-                    {
-                        // In the event the index wasn't updated, we may get an incorrect count. 
-                        totalHits = 0;
-                    }
-                }
-                else
-                {
-                    packageVersions = searchSvc.Search(packageVersions, q)
-                                                   .SortBy(GetSortExpression(sortOrder));
-                    totalHits = packageVersions.Count();
+                    // In the event the index wasn't updated, we may get an incorrect count. 
+                    totalHits = 0;
                 }
             }
             else
