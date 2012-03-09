@@ -60,6 +60,9 @@
     <Reference Include="EntityFramework.Migrations">
       <HintPath>..\packages\EntityFramework.Migrations.0.7.0.0\lib\net40\EntityFramework.Migrations.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Lucene.Net">
       <HintPath>..\packages\Lucene.Net.2.9.2.2\lib\net40\Lucene.Net.dll</HintPath>
     </Reference>
@@ -106,6 +109,9 @@
     </Reference>
     <Reference Include="QueryInterceptor">
       <HintPath>..\packages\QueryInterceptor.0.1.4237.2400\lib\net40\QueryInterceptor.dll</HintPath>
+    </Reference>
+    <Reference Include="Rackspace.CloudFiles">
+      <HintPath>..\packages\csharp-cloudfiles.2.0.0.45\lib\net35\Rackspace.CloudFiles.dll</HintPath>
     </Reference>
     <Reference Include="Recaptcha, Version=1.0.5.0, Culture=neutral, PublicKeyToken=9afc4d65b28c38c2, processorArchitecture=MSIL">
       <HintPath>..\packages\recaptcha.1.0.5.0\lib\.NetFramework 4.0\Recaptcha.dll</HintPath>
@@ -267,6 +273,7 @@
     <Compile Include="Services\PackageFileService.cs" />
     <Compile Include="RequireRemoteHttpsAttribute.cs" />
     <Compile Include="Services\PackageSearchResults.cs" />
+    <Compile Include="Services\RackspaceStorage.cs" />
     <Compile Include="Services\TestableStorageClientException.cs" />
     <Compile Include="Services\UploadFileService.cs" />
     <Compile Include="ViewModels\EditProfileViewModel.cs" />
@@ -740,6 +747,7 @@
     <Content Include="Views\Users\ResendConfirmation.cshtml">
     </Content>
     <Compile Include="Infrastructure\Lucene\LuceneSearchService.cs" />
+    <Content Include="Log4Net.config" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll" />
     <None Include="_bin_deployableAssemblies\System.Web.WebPages.dll" />
