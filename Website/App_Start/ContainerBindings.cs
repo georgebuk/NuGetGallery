@@ -134,12 +134,12 @@ namespace NuGetGallery
 
             switch (configuration.PackageStoreType)
             {
-                case PackageStoreType.FileSystem:
                 case PackageStoreType.Rackspace:
                     Bind<IFileStorageService>()
                         .To<RackspaceStorage>()
                         .InSingletonScope();
                     break;
+                case PackageStoreType.FileSystem:
                 case PackageStoreType.NotSpecified:
                     Bind<IFileSystemService>()
                         .To<FileSystemService>()
