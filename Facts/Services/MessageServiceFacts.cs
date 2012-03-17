@@ -126,69 +126,69 @@ namespace NuGetGallery.Services
             }
         }
 
-        public class TheSendResetPasswordInstructionsMethod
-        {
-            [Fact]
-            public void WillSendInstructions()
-            {
-                var user = new User { EmailAddress = "legit@example.com", Username = "too" };
-                var mailSender = new Mock<IMailSender>();
-                var setting = new GallerySetting { GalleryOwnerName = "NuGet Gallery", GalleryOwnerEmail = "joe@example.com" };
-                var messageService = new MessageService(mailSender.Object, setting);
-                MailMessage message = null;
-                mailSender.Setup(m => m.Send(It.IsAny<MailMessage>())).Callback<MailMessage>(m => { message = m; });
+        //public class TheSendResetPasswordInstructionsMethod
+        //{
+        //    [Fact]
+        //    public void WillSendInstructions()
+        //    {
+        //        var user = new User { EmailAddress = "legit@example.com", Username = "too" };
+        //        var mailSender = new Mock<IMailSender>();
+        //        var setting = new GallerySetting { GalleryOwnerName = "NuGet Gallery", GalleryOwnerEmail = "joe@example.com" };
+        //        var messageService = new MessageService(mailSender.Object, setting);
+        //        MailMessage message = null;
+        //        mailSender.Setup(m => m.Send(It.IsAny<MailMessage>())).Callback<MailMessage>(m => { message = m; });
 
-                messageService.SendPasswordResetInstructions(user, "http://example.com/pwd-reset-token-url");
+        //        messageService.SendPasswordResetInstructions(user, "http://example.com/pwd-reset-token-url");
 
-                Assert.Equal("legit@example.com", message.To[0].Address);
-                Assert.Equal("[NuGet Gallery] Please reset your password.", message.Subject);
-                Assert.Contains("Click the following link within the next", message.Body);
-                Assert.Contains("http://example.com/pwd-reset-token-url", message.Body);
-            }
-        }
+        //        Assert.Equal("legit@example.com", message.To[0].Address);
+        //        Assert.Equal("[NuGet Gallery] Please reset your password.", message.Subject);
+        //        Assert.Contains("Click the following link within the next", message.Body);
+        //        Assert.Contains("http://example.com/pwd-reset-token-url", message.Body);
+        //    }
+        //}
 
-        public class TheSendPackageOwnerRequestMethod
-        {
-            [Fact]
-            public void SendsPackageOwnerRequestConfirmationUrl()
-            {
-                var to = new User { Username = "Noob", EmailAddress = "new-owner@example.com", EmailAllowed = true };
-                var from = new User { Username = "Existing", EmailAddress = "existing-owner@example.com" };
-                var mailSender = new Mock<IMailSender>();
-                var setting = new GallerySetting { GalleryOwnerName = "NuGet Gallery", GalleryOwnerEmail = "joe@example.com" };
-                var messageService = new MessageService(mailSender.Object, setting);
-                var package = new PackageRegistration { Id = "CoolStuff" };
-                var confirmationUrl = "http://example.com/confirmation-token-url";
-                MailMessage message = null;
-                mailSender.Setup(m => m.Send(It.IsAny<MailMessage>())).Callback<MailMessage>(m => { message = m; });
+        //public class TheSendPackageOwnerRequestMethod
+        //{
+        //    [Fact]
+        //    public void SendsPackageOwnerRequestConfirmationUrl()
+        //    {
+        //        var to = new User { Username = "Noob", EmailAddress = "new-owner@example.com", EmailAllowed = true };
+        //        var from = new User { Username = "Existing", EmailAddress = "existing-owner@example.com" };
+        //        var mailSender = new Mock<IMailSender>();
+        //        var setting = new GallerySetting { GalleryOwnerName = "NuGet Gallery", GalleryOwnerEmail = "joe@example.com" };
+        //        var messageService = new MessageService(mailSender.Object, setting);
+        //        var package = new PackageRegistration { Id = "CoolStuff" };
+        //        var confirmationUrl = "http://example.com/confirmation-token-url";
+        //        MailMessage message = null;
+        //        mailSender.Setup(m => m.Send(It.IsAny<MailMessage>())).Callback<MailMessage>(m => { message = m; });
 
-                messageService.SendPackageOwnerRequest(from, to, package, confirmationUrl);
+        //        messageService.SendPackageOwnerRequest(from, to, package, confirmationUrl);
 
-                Assert.Equal("new-owner@example.com", message.To[0].Address);
-                Assert.Equal("existing-owner@example.com", message.From.Address);
-                Assert.Equal("[NuGet Gallery] The user 'Existing' wants to add you as an owner of the package 'CoolStuff'.", message.Subject);
-                Assert.Contains(confirmationUrl, message.Body);
-                Assert.Contains("The user 'Existing' wants to add you as an owner of the package 'CoolStuff'.", message.Body);
-            }
+        //        Assert.Equal("new-owner@example.com", message.To[0].Address);
+        //        Assert.Equal("existing-owner@example.com", message.From.Address);
+        //        Assert.Equal("[NuGet Gallery] The user 'Existing' wants to add you as an owner of the package 'CoolStuff'.", message.Subject);
+        //        Assert.Contains(confirmationUrl, message.Body);
+        //        Assert.Contains("The user 'Existing' wants to add you as an owner of the package 'CoolStuff'.", message.Body);
+        //    }
 
-            [Fact]
-            public void DoesNotSendRequestIfUserDoesNotAllowEmails()
-            {
-                var to = new User { Username = "Noob", EmailAddress = "new-owner@example.com", EmailAllowed = false };
-                var from = new User { Username = "Existing", EmailAddress = "existing-owner@example.com" };
-                var mailSender = new Mock<IMailSender>();
-                mailSender.Setup(s => s.Send(It.IsAny<MailMessage>())).Throws(new InvalidOperationException("Should not be called"));
-                var setting = new GallerySetting { GalleryOwnerName = "NuGet Gallery", GalleryOwnerEmail = "joe@example.com" };
-                var messageService = new MessageService(mailSender.Object, setting);
-                var package = new PackageRegistration { Id = "CoolStuff" };
-                var confirmationUrl = "http://example.com/confirmation-token-url";
-                MailMessage message = null;
-                mailSender.Setup(m => m.Send(It.IsAny<MailMessage>())).Callback<MailMessage>(m => { message = m; });
+        //    [Fact]
+        //    public void DoesNotSendRequestIfUserDoesNotAllowEmails()
+        //    {
+        //        var to = new User { Username = "Noob", EmailAddress = "new-owner@example.com", EmailAllowed = false };
+        //        var from = new User { Username = "Existing", EmailAddress = "existing-owner@example.com" };
+        //        var mailSender = new Mock<IMailSender>();
+        //        mailSender.Setup(s => s.Send(It.IsAny<MailMessage>())).Throws(new InvalidOperationException("Should not be called"));
+        //        var setting = new GallerySetting { GalleryOwnerName = "NuGet Gallery", GalleryOwnerEmail = "joe@example.com" };
+        //        var messageService = new MessageService(mailSender.Object, setting);
+        //        var package = new PackageRegistration { Id = "CoolStuff" };
+        //        var confirmationUrl = "http://example.com/confirmation-token-url";
+        //        MailMessage message = null;
+        //        mailSender.Setup(m => m.Send(It.IsAny<MailMessage>())).Callback<MailMessage>(m => { message = m; });
 
-                messageService.SendPackageOwnerRequest(from, to, package, confirmationUrl);
+        //        messageService.SendPackageOwnerRequest(from, to, package, confirmationUrl);
 
-                Assert.Null(message);
-            }
-        }
+        //        Assert.Null(message);
+        //    }
+        //}
     }
 }
