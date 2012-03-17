@@ -9,7 +9,7 @@
         <link href="@Url.Content("~/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
         <script src="@Url.Content("~/Scripts/modernizr-2.0.6-development-only.js")"></script>
         @MvcMiniProfiler.MiniProfiler.RenderIncludes()
-        @Analytics.GetGoogleHtml("UA-177588-7")
+        @*Analytics.GetGoogleHtml("UA-177588-7")*@
     </head>
     <body>
         <div id="content-wraper">
@@ -24,14 +24,14 @@
                         var packagesClass = ViewBag.Tab == "Packages" ? "current" : "";
                         var uploadClass = ViewBag.Tab == "Upload" ? "current" : "";
                     }
-                    <li class="@homeClass"><a href="@Url.Home()">Home</a></li>
-                    <li class="@packagesClass"><a href="@Url.PackageList()">Packages</a></li>
-                    <li class="@uploadClass"><a href="@Url.UploadPackage()" class="upload">Upload Package</a></li>
-                    <li><a href="http://docs.nuget.org">Documentation</a></li>
+                    <li class="@homeClass"><a href="@Url.Home()">home</a></li>
+                    <li class="@packagesClass"><a href="@Url.PackageList()">extensions</a></li>
+                    <li class="@uploadClass"><a href="@Url.UploadPackage()" class="upload">upload</a></li>
+                    <li><a href="http://code52.org">apps</a></li>
                 </ul>
                 <div id="searchBox">
                     <form action="@Url.PackageList()" method="get">
-                        <input name="q" id="searchBoxInput" placeholder="Search Packages" value="@(String.IsNullOrEmpty(ViewBag.SearchTerm) ? "" : ViewBag.SearchTerm)" />
+                        <input name="q" id="searchBoxInput" placeholder="Search Extensions" value="@(String.IsNullOrEmpty(ViewBag.SearchTerm) ? "" : ViewBag.SearchTerm)" />
                         <input id="searchBoxSubmit" type="submit" value=" " />
                     </form>
                 </div>
@@ -45,27 +45,9 @@
         </div>
         <div id="layout-footer" class="group">
             <footer id="footer">
-                <ul class="recommended">
-                    <li>
-                        <a href="http://docs.nuget.org/docs/start-here/overview">Overview</a>
-                        <p>NuGet is a Visual Studio 2010 extension that makes it easy to add, remove, and update libraries and...</p>
-                    </li>
-                    <li>
-                        <a href="http://docs.nuget.org/docs/start-here/installing-nuget">Install</a>
-                        <p>NuGet can be installed and updated using the Visual Studio Extension Manager. To check if your copy...</p>
-                    </li>
-                    <li>
-                        <a href="http://docs.nuget.org/docs/start-here/videos">Videos</a>
-                        <p>Watch screencasts and presentations about anything and everything NuGet.</p>
-                    </li>
-                    <li>
-                        <a href="http://docs.nuget.org/docs/start-here/nuget-faq">FAQ</a>
-                        <p>Read the Frequently Asked Questions about NuGet and see if your question made the list.</p>
-                    </li>
-                </ul>
                 <div class="license">
                     <p>
-                        &copy; @DateTime.UtcNow.Year Outercurve Foundation.
+                        &copy; @DateTime.UtcNow.Year Code52. Powered by Nuget Gallery
                     </p>
                     @ViewHelpers.ReleaseTag()
                 </div>

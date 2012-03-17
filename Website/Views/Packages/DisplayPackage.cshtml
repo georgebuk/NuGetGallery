@@ -76,7 +76,7 @@
             <a href="@Url.DeletePackage(Model)">change its listing setting</a>.
         </p>                             
     }
-    <p>
+@*    <p>
         To install @Model.Title, run the following command in the <a href="http://docs.nuget.org/docs/start-here/using-the-package-manager-console">
             Package Manager Console</a>
     </p>
@@ -88,7 +88,7 @@
                 @if (Model.Prerelease)
                 {<text> -Pre </text>}</code></p>
     </div>
-
+*@
     @if (!String.IsNullOrWhiteSpace(Model.ReleaseNotes))
     {
         <h3>Release Notes</h3>
