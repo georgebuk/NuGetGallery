@@ -122,8 +122,8 @@ The {0} Team";
             body = String.Format(CultureInfo.CurrentCulture,
                 body,
                 settings.GalleryOwnerName,
-                HttpUtility.UrlDecode(confirmationUrl),
-                confirmationUrl);
+                HttpUtility.UrlDecode(HttpContext.Current.ToPublicUrl(new Uri(confirmationUrl))),
+                HttpContext.Current.ToPublicUrl(new Uri(confirmationUrl)));
 
             using (var mailMessage = new MailMessage())
             {
