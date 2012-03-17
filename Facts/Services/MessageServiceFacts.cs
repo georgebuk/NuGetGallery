@@ -106,25 +106,25 @@ namespace NuGetGallery.Services
             }
         }
 
-        public class TheSendNewAccountEmailMethod
-        {
-            [Fact]
-            public void WillSendEmailToNewUser()
-            {
-                var to = new MailAddress("legit@example.com", "too");
-                var mailSender = new Mock<IMailSender>();
-                var setting = new GallerySetting { GalleryOwnerName = "NuGet Gallery", GalleryOwnerEmail = "joe@example.com" };
-                var messageService = new MessageService(mailSender.Object, setting);
-                MailMessage message = null;
-                mailSender.Setup(m => m.Send(It.IsAny<MailMessage>())).Callback<MailMessage>(m => { message = m; });
+        //public class TheSendNewAccountEmailMethod
+        //{
+        //    [Fact]
+        //    public void WillSendEmailToNewUser()
+        //    {
+        //        var to = new MailAddress("legit@example.com", "too");
+        //        var mailSender = new Mock<IMailSender>();
+        //        var setting = new GallerySetting { GalleryOwnerName = "NuGet Gallery", GalleryOwnerEmail = "joe@example.com" };
+        //        var messageService = new MessageService(mailSender.Object, setting);
+        //        MailMessage message = null;
+        //        mailSender.Setup(m => m.Send(It.IsAny<MailMessage>())).Callback<MailMessage>(m => { message = m; });
 
-                messageService.SendNewAccountEmail(to, "http://example.com/confirmation-token-url");
+        //        messageService.SendNewAccountEmail(to, "http://example.com/confirmation-token-url");
 
-                Assert.Equal("legit@example.com", message.To[0].Address);
-                Assert.Equal("[NuGet Gallery] Please verify your account.", message.Subject);
-                Assert.Contains("http://example.com/confirmation-token-url", message.Body);
-            }
-        }
+        //        Assert.Equal("legit@example.com", message.To[0].Address);
+        //        Assert.Equal("[NuGet Gallery] Please verify your account.", message.Subject);
+        //        Assert.Contains("http://example.com/confirmation-token-url", message.Body);
+        //    }
+        //}
 
         //public class TheSendResetPasswordInstructionsMethod
         //{
