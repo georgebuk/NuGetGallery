@@ -4,7 +4,7 @@
     ViewBag.Tab = "Upload Your Package";
 }
 
-<h1 class="page-heading">Upload Your Package</h1>
+<h1 class="page-heading">Upload Your Extension</h1>
 
 @ViewHelpers.UploadSequence(1)
 
@@ -13,9 +13,9 @@
         <legend>Upload a Package</legend>
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
-        <p class="message">Your package file will be uploaded and hosted on the NuGet Gallery server (NuGet.org).</p>
+        <p class="message">Your extension will be uploaded and hosted on the Code52 Extension Gallery.</p>
         <div class="form-field">
-            <label for="PackageFile">Choose a package...</label>
+            <label for="PackageFile">Choose an extension...</label>
             <input type="file" name="UploadFile" />
         </div>
 

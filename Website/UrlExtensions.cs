@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
 using System;
 
 namespace NuGetGallery
@@ -100,6 +101,24 @@ namespace NuGetGallery
         public static string VerifyPackage(this UrlHelper url)
         {
             return url.Action(MVC.Packages.VerifyPackage());
+        }
+
+        public static string ToPublicUrl(this HttpContext httpContext, Uri relativeUri)
+        {
+            var uriBuilder = new UriBuilder
+            {
+                Host = httpContext.Request.Url.Host,
+                Path = "/",
+                Port = 80,
+                Scheme = "http",
+            };
+
+            if (httpContext.Request.IsLocal)
+            {
+                uriBuilder.Port = httpContext.Request.Url.Port;
+            }
+
+            return new Uri(uriBuilder.Uri, relativeUri).AbsoluteUri;
         }
     }
 }

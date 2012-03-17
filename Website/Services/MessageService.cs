@@ -150,8 +150,8 @@ The {0} Team";
             body = String.Format(CultureInfo.CurrentCulture,
                 body,
                 settings.GalleryOwnerName,
-                HttpUtility.UrlDecode(confirmationUrl),
-                confirmationUrl);
+                HttpUtility.UrlDecode(HttpContext.Current.ToPublicUrl(new Uri(confirmationUrl))),
+                HttpContext.Current.ToPublicUrl(new Uri(confirmationUrl)));
 
             using (var mailMessage = new MailMessage())
             {
@@ -208,7 +208,7 @@ The {2} Team";
             body = String.Format(CultureInfo.CurrentCulture,
                 body,
                 Constants.DefaultPasswordResetTokenExpirationHours,
-                resetPasswordUrl,
+                HttpContext.Current.ToPublicUrl(new Uri(resetPasswordUrl)),
                 settings.GalleryOwnerName);
 
             string subject = String.Format(CultureInfo.CurrentCulture, "[{0}] Please reset your password.", settings.GalleryOwnerName);
@@ -243,7 +243,7 @@ To accept this request and become a listed owner of the package, click the follo
 Thanks,
 The {3} Team";
 
-            body = String.Format(CultureInfo.CurrentCulture, body, fromUser.Username, package.Id, confirmationUrl, settings.GalleryOwnerName);
+            body = String.Format(CultureInfo.CurrentCulture, body, fromUser.Username, package.Id, HttpContext.Current.ToPublicUrl(new Uri(confirmationUrl)), settings.GalleryOwnerName);
 
             using (var mailMessage = new MailMessage())
             {
